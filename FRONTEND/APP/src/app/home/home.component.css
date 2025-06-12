@@ -1,0 +1,159 @@
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f9fafb;
+  color: #1f2937;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Titoli */
+h1, h3 {
+  color: #111827;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+h3 {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#ad {
+  width: 32px;
+  margin-right: 10px;
+}
+
+/* Input fields */
+input {
+  width: 100%;
+  max-width: 350px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: white;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Buttons */
+button {
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 12px;
+}
+
+button:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+/* Colori bottoni */
+button:nth-of-type(1) {
+  background-color: #10b981;
+  color: white;
+}
+
+button:nth-of-type(2),
+div button:first-of-type {
+  background-color: #3b82f6;
+  color: white;
+}
+
+div button:last-of-type {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* Card utente */
+div[ng-reflect-ng-for-of] {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 16px;
+  width: 100%;
+  max-width: 400px;
+  margin: 16px auto;
+}
+
+div[ng-reflect-ng-for-of] p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+div[ng-reflect-ng-for-of] button {
+  width: 48%;
+  margin: 8px 1%;
+  font-size: 13px;
+  padding: 7px 10px;
+}
+
+/* Messaggi */
+.message {
+  padding: 14px;
+  border-left: 6px solid;
+  border-radius: 6px;
+  margin-top: 20px;
+  max-width: 380px;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-size: 14px;
+}
+
+.message.success {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border-color: #10b981;
+}
+
+.message.error {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border-color: #ef4444;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  input, button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  div[ng-reflect-ng-for-of] {
+    padding: 14px;
+  }
+
+  h1, h3 {
+    font-size: 20px;
+  }
+}

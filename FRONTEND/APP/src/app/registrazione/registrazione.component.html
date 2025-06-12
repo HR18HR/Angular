@@ -1,0 +1,17 @@
+
+<div class="regis-container">
+  <h2>REGISTRAZIONE</h2>
+    <p>Inserisci email</p>
+    <input type="text" class="input-field" placeholder="Email" required [(ngModel)]="email">
+    <p>Inserisci Username</p>
+    <input type="text" class="input-field" placeholder="Username" required [(ngModel)]="username">
+    <p>Inserisci Passowrd</p>
+    <input type="password" class="input-field" placeholder="Password" required [(ngModel)]="password">
+    <button type="submit" class="btn-login" (click)="Regist()">REGISTRA</button>
+</div>
+<div *ngIf="res.Pos==1"class="message success">
+    <p>{{risposta}}</p>
+</div>
+<div *ngIf="res.Neg==1" class="message error">
+    <p>{{risposta}}</p>
+</div>

@@ -1,0 +1,218 @@
+<!-- Se è la prima volta, chiedi aggiornamento dati -->
+<div *ngIf="first_T == true">
+  <h1>E' LA TUA PRIMA VOLTA AGGIORNA I TUOI DATI</h1>
+  <input type="text" placeholder="Inserisci Email" [(ngModel)]="Updating.email">
+  <input type="text" placeholder="Inserisci Password" [(ngModel)]="Updating.password">
+  <input type="text" placeholder="Inserisci Username" [(ngModel)]="Updating.username">
+  <button (click)="Update()">Update</button>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Messaggi di risposta -->
+<div *ngIf="res.Pos == 1" class="message success">
+  <p>{{ risposta }}</p>
+</div>
+<div *ngIf="res.Neg == 1" class="message error">
+  <p>{{ risposta }}</p>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Crea Rotta -->
+<div class="Crea rotta">
+  <h1>CREA ROTTA</h1>
+  <input type="text" placeholder="Partenza" [(ngModel)]="rotta.from">
+  <input type="text" placeholder="Inserisci Arrivo" [(ngModel)]="rotta.to">
+  <input type="number" placeholder="Inserisci ID" [(ngModel)]="rotta.id">
+  <button (click)="CreateRotta()">Crea Rotta</button>
+</div>
+
+<!-- Recupera tutte le rotte -->
+<button id="get-rotte" (click)="GetRotte()">CLICCA PER OTTENERE/AGGIORNARE TUTTE LE ROTTE</button>
+
+
+<!-- Visualizzazione Rotte -->
+<button id="vis" (click)="RemoveVisual_r()" *ngIf="visual_r == true">Togli Rotte dalla visuale</button>
+<button id="vis" (click)="RemoveVisual_r()" *ngIf="visual_r == false">Mostra Rotte</button>
+
+<!-- Modifica Rotta -->
+<div *ngIf="bool_r == true" class="ChangeRotta">
+  <p>ID non può essere vuoto mentre Partenza o Arrivo sì</p>
+  <button (click)="BOO_r1()" id="chiusura">X</button>
+  <input type="number" placeholder="{{rottatc.id}}" readonly>
+  <input type="text" placeholder="Modifica Partenza" [(ngModel)]="rottaup.from">
+  <input type="text" placeholder="Modifica Arrivo" [(ngModel)]="rottaup.to">
+  <button (click)="UpdateRotta()">Update Rotta</button>
+</div>
+
+<!-- Lista Rotte -->
+<div *ngIf="visual_r == true">
+  <div *ngFor="let rotta of Rotte" class="rotta-card">
+    <img src="plane-flight-route-vector-illustration_598213-5795.jpg.avif">
+    <p><strong>FROM:</strong> {{ rotta.from }}</p>
+    <p><strong>TO:</strong> {{ rotta.to }}</p>
+    <p><strong>VIEWS:</strong> {{ rotta.views }}</p>
+    <p><strong>ID:</strong> {{ rotta.id }}</p>
+    <br>
+    <br>
+    <button (click)="DeleteRoute(rotta.id)">Elimina</button>
+    <button (click)="BOO_r(rotta)">Modifica</button>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<!-- Crea Aircraft -->
+<div class="Crea aircraft">
+  <h1>CREA AIRCRAFT</h1>
+  <p>Inserisci Id</p>
+  <input type="number" placeholder="ID Aircraft" [(ngModel)]="aircraft.id">
+  <p>Inserisci Capacità FirstClass</p>
+  <input type="number" placeholder="Numero Posti FirstClass" [(ngModel)]="aircraft.capacity.firstclass">
+  <p>Inserisci Capacità Business</p>
+  <input type="number" placeholder="Numero Posti Business" [(ngModel)]="aircraft.capacity.business">
+  <p>Inserisci Capacità Economy</p>
+  <input type="number" placeholder="Numero Posti Economy" [(ngModel)]="aircraft.capacity.economy">
+  <button (click)="CreateAircraft()">Crea Aircraft</button>
+</div>
+
+<!-- Recupera Aircraft -->
+<button id="get-aircrafts" (click)="GetAircrafts()">CLICCA PER  OTTENERE/AGGIORNARE GLI AIRCRAFTS</button>
+
+<!-- Visualizzazione Aircraft -->
+<button id="vis" (click)="RemoveVisual_a()" *ngIf="visual_a == true">Togli Aircrafts dalla visuale</button>
+<button id="vis" (click)="RemoveVisual_a()" *ngIf="visual_a == false">Mostra Aircrafts</button>
+
+
+<!-- Lista Aircraft -->
+<div *ngIf="visual_a == true">
+  <div *ngFor="let aircraft of Aircrafts" class="rotta-aircraft">
+    <img src="1.jpg">
+    <p><strong>ID:</strong> {{ aircraft.id }}</p>
+    <p><strong>MODEL:</strong> {{ aircraft.model }}</p>
+    <p><strong>CAPACITY:</strong></p>
+    <p><strong>FIRSTCLASS:</strong> {{ aircraft.capacity.firstclass }}</p>
+    <p><strong>BUSINESS:</strong>{{ aircraft.capacity.business }}</p>
+    <p><strong>ECONOMY:</strong>{{ aircraft.capacity.economy }}</p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <button (click)="DeleteAircraft(aircraft.id)">Elimina</button>
+    <button (click)="BOO_a(aircraft)">Modifica</button>
+  </div>
+  <!-- Update Aircraft -->
+  <div *ngIf="bool_a == true" class="ChangeRotta">
+    <button (click)="BOO_a1()" id="chiusura">X</button>
+    <p>Id rotta</p>
+    <input type="number" placeholder="{{aircrafttc.id}}">
+    <p>Firstclass</p>
+    <input type="number" placeholder="firstclass" [(ngModel)]="aircraftup.capacity.firstclass">
+    <p>Business</p>
+    <input type="number" placeholder="business" [(ngModel)]="aircraftup.capacity.business">
+    <p>Economy</p>
+    <input type="number" placeholder="economy" [(ngModel)]="aircraftup.capacity.economy">
+    <button (click)="UpdateAircraft()">Update Aircraft</button>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Crea Flight -->
+<div class="Crea Flight">
+  <h1>CREA FLIGHT</h1>
+  <p>ID VOLO</p><input type="text" placeholder="ID volo" [(ngModel)]="flight.id" />
+  <p>Partenza</p><input type="text" placeholder="Partenza" [(ngModel)]="flight.route.from" />
+  <p>Arrivo</p><input type="text" placeholder="Arrivo" [(ngModel)]="flight.route.to" />
+  <p>ID Aircraft</p><input type="number" placeholder="Aircraft" [(ngModel)]="flight.aircraft" />
+  <p>Data volo</p><input type="date" placeholder="Data" [(ngModel)]="flight.date" />
+  <p>Orario Volo</p><input type="time" placeholder="Orario Partenza" [(ngModel)]="flight.departureTime" />
+  <p>Durata Volo</p><input type="time" placeholder="Durata Volo" [(ngModel)]="flight.flightTime" />
+  <p>Numero Scali</p><input type="number" placeholder="Numero Scali" [(ngModel)]="flight.stop" />
+  <p>Prezzo FirstClass</p><input type="number" placeholder="Prezzo Prima Classe"
+    [(ngModel)]="flight.prices.firstclass" />
+  <p>Prezzo Business</p><input type="number" placeholder="Prezzo Business" [(ngModel)]="flight.prices.business" />
+  <p>Prezzo Economy</p><input type="number" placeholder="Prezzo Economy" [(ngModel)]="flight.prices.economy" />
+  <button (click)="Cr_F()">Create Flight</button>
+  <div *ngIf="cr_f==true" class="nb">
+    <p>RICORDATI PRIMA DI CONFERMARE CHE LE ROTTE E GLI AIRCRAFT CHE INSERISCI NEL VOLO DEVONO ESSERE PRESENTI NEL DB
+    </p>
+    <p> PER LA PARTE DEGLI AIRCRAFT DEVI INSERIRE IL SUO ID MENTRE PER LA ROTTA BASTA PARTENZA E ARRIVO</p>
+    <button (click)="CreateFlight()">Crea</button>
+  </div>
+</div>
+<!-- Recupera FLights -->
+<button id="get-Flights" (click)="GetFlights()">CLICCA PER OTTENERE/AGGIORNARE TUTTI I VOLI</button>
+
+<button id="vis" (click)="RemoveVisual_f()" *ngIf="visual_f == true">Togli Voli dalla visuale</button>
+<button id="vis" (click)="RemoveVisual_f()" *ngIf="visual_f == false">Mostra Voli</button>
+<!-- Lista Flights -->
+<div *ngIf="visual_f == true">
+  <div *ngFor="let flight of Flights" class="flights">
+    <img src="flight.png">
+    <p><strong>ID:</strong> {{ flight.id }}</p>
+    <p><strong>FROM:</strong>{{flight.route.from}}</p>
+    <p><strong>TO:</strong>{{flight.route.to}}</p> 
+    <p><strong>AIRCRAFT:</strong>{{flight.aircraft}}</p>
+    <p><strong>DATA:</strong>{{flight.date|date:'dd/MM/yyyy' }}</p>
+    <p><strong>ORARIO PARTENZA:</strong>ORE{{flight.departureTime}}</p>
+    <p><strong>DURATA VOLO:</strong>{{flight.flightTime}}H</p>
+    <p><strong>NUMERO DI SCALI:</strong>{{flight.stop}}</p>
+    <p><strong>PREZZI:</strong>
+    <p><strong>FIRSTCLASS:</strong>{{flight.prices.firstclass}}€</p>
+    <p><strong>BUSINESS:</strong>{{flight.prices.business}}€</p>
+    <p><strong>ECONOMY:</strong>{{flight.prices.economy}}€</p>
+    <p><strong>PROPRIETARIO:</strong>{{flight.owner}}</p>
+    <p><strong>STATO VOLO:</strong>{{flight.state}}</p>
+    <p><strong>POSTI DISPONIBILI</strong>
+    <p><strong>FIRSTCLASS:</strong>{{flight.seats_available.firstclass.Num}}</p>
+    <p><strong>BUSINESS:</strong>{{flight.seats_available.business.Num}}</p>
+    <p><strong>ECONOMY:</strong>{{flight.seats_available.economy.Num}}</p>
+    <p><strong>GUADAGNO:</strong>{{flight.revenue}}€</p>
+    <p><strong>Passegeri Volo:</strong>{{flight.Passengers}}</p>
+     <button (click)="DeleteFlight(flight.id)">Elimina</button>
+    <button (click)="BOO_f(flight)">Modifica</button>
+  </div>
+  <!-- Update Flights -->
+  <div *ngIf="bool_f == true" class="ChangeFlight">
+    <button (click)="BOO_f1()" id="chiusura">X</button>
+  <p>ID VOLO</p><input type="text" placeholder={{flightc.id}} readonly/>
+  <p>ROUTE</p><p>...From</p><input type="text" placeholder={{flightc.route.from}} readonly />
+  <p>...To</p><input type="text" placeholder={{flightc.route.from}} readonly />
+  <p>ID Aircraft</p><input type="number" placeholder={{flightc.aircraft}} readonly/>
+  <p>Data volo</p><input type="date" placeholder="Data" [(ngModel)]="flightc.date" />
+  <p>Orario Volo</p><input type="time" placeholder="Orario Partenza" [(ngModel)]="flightc.departureTime" />
+  <p>Durata Volo</p><input type="time" placeholder="Durata Volo" [(ngModel)]="flightc.flightTime" />
+ <p>Stato Volo</p> <select id="stato" [(ngModel)]="flightc.state">
+  <option value="OnTime">Ontime</option>
+  <option value="Canceled">Canceled</option>
+  <option value="Delayed">Delayed</option>
+  <option value="Done">Done</option>
+</select>
+  <p>Numero Scali</p><input type="number" placeholder="Numero Scali" [(ngModel)]="flightc.stop" />
+  <p>Prezzo FirstClass</p><input type="number" placeholder="Prezzo Prima Classe" [(ngModel)]="flightc.prices.firstclass" />
+  <p>Prezzo Business</p><input type="number" placeholder="Prezzo Business" [(ngModel)]="flightc.prices.business" />
+  <p>Prezzo Economy</p><input type="number" placeholder="Prezzo Economy" [(ngModel)]="flightc.prices.economy" />
+  <button (click)="UpdateFlight()">Update Flight</button>
+  </div>
+</div>

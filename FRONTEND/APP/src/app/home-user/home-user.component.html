@@ -1,0 +1,130 @@
+<!-- Intestazione con messaggio di benvenuto -->
+<div class="intestazione">
+  <div class="messaggio-benvenuto">
+    <p class="benvenuto" *ngIf="name!=''">Benvenuto <u><strong>{{ name }}</strong></u></p>
+    <p class="benvenuto" *ngIf="name==''">Sei in modalità Ospite</p>
+  </div>
+</div>
+
+<!-- Form di ricerca voli -->
+<div class="form-ricerca">
+  <input type="text" placeholder="Da" [(ngModel)]="Cerca_F.from" class="controllo input-da" />
+  <input type="text" placeholder="A" [(ngModel)]="Cerca_F.to" class="controllo input-a" />
+  <input type="date" [(ngModel)]="Cerca_F.date" class="controllo input-data" />
+  <button class="bottone bottone-ricerca" (click)="SearchF()">CERCA VOLO</button>
+</div>
+
+<!-- Messaggio positivo -->
+<div *ngIf="res.Pos == 1" class="messaggio successo">
+  <p>{{ risposta }}</p>
+</div>
+
+<!-- Messaggio negativo -->
+<div *ngIf="res.Neg == 1" class="messaggio errore">
+  <p>{{ risposta }}</p>
+</div>
+
+<!-- Bottone filtri -->
+<button class="bottone-toggle-filtri" (click)="Filtra_b()">
+  <img src="filters.jpg" alt="Filtra" />
+</button>
+
+<!-- Sezione filtri -->
+<div class="sezione-filtri" *ngIf="filtra_b">
+  <div class="filtro filtro-prezzo">
+    <p>Prezzo:</p>
+    <input type="range" min="0" max="5000" [(ngModel)]="range_price" (change)="FiltraPrezzo()">
+    <span class="valore-filtro prezzo">{{ range_price }} €</span>
+  </div>
+  <div class="filtro filtro-durata">
+    <p>Durata:</p>
+    <input type="range" min="0" max="24" [(ngModel)]="range_duration" (change)="FiltraDurata()">
+    <span class="valore-filtro durata">{{ range_duration }}H</span>
+  </div>
+  <div class="filtro filtro-scalo">
+    <input type="checkbox" [(ngModel)]="scalo" (change)="Scalo()" />
+    <p>Scalo</p>
+  </div>
+</div>
+
+<!-- Risultato ricerca -->
+<div *ngIf="risultato_bo" class="testo-risultato">
+  {{ risultato }}
+</div>
+
+<!-- Elenco voli trovati -->
+<div class="contenitore-carte-voli">
+  <div *ngFor="let flight of Flights" class="classe-volo">
+    <img id="flight_f" src="flight.png">
+    <h2 class="titolo-volo">Numero Volo  ------ [{{ flight.id }}]------</h2>
+      <p><strong>INFO VOLO :</strong></p>
+      <br>
+    <p class="tratta-volo"><strong>DA:</strong><u>{{ flight.route.from }}</u>---<strong>A:</strong><u>{{ flight.route.to }}</u></p>
+    <p class="data-volo"><strong>Data:</strong> {{ flight.date }}</p>
+    <p class="partenza-volo"><strong>Ora Partenza:</strong> {{ flight.departureTime }}</p>
+    <p class="durata-volo"><strong>Durata Volo:</strong> {{ flight.flightTime }}</p>
+    <p class="scali-volo"><strong>Scali:</strong> {{ flight.stop }}</p>
+    <p class="compagnia-volo"><strong>Compagnia:</strong> {{ flight.owner }}</p>
+     <br><br>
+    <div class="sezione-prezzi">
+      <p><strong>Prezzi:</strong></p>
+      <p><strong>Prima Classe:</strong> {{ flight.prices.firstclass }} €</p>
+      <p><strong>Business:</strong> {{ flight.prices.business }} €</p>
+      <p><strong>Economy:</strong> {{ flight.prices.economy }} €</p>
+    </div>
+      <br><br>
+    <div class="sezione-posti">
+       <p><strong>Posti disponibili:</strong></p>
+      <p><strong>Prima Classe:</strong> {{ flight.seats_available.firstclass.Num }} ({{ flight.seats_available.firstclass.type }})</p>
+      <p><strong>Business:</strong> {{ flight.seats_available.business.Num }} ({{ flight.seats_available.business.type }})</p>
+      <p><strong>Economy:</strong> {{ flight.seats_available.economy.Num }} ({{ flight.seats_available.economy.type }})</p>
+    </div>
+
+    <button class="bottone bottone-acquista" (click)="Acquista_b(flight)">Acquista</button>
+  </div>
+</div>
+
+<!-- Sezione acquisto biglietto -->
+<div class="sezione-acquisto" *ngIf="acquista_b==true">
+  <h3>Acquista il tuo biglietto</h3>
+  <br>
+  <p>Numero di biglietti:</p> 
+  <input type="number" class="campo-biglietto numero-biglietti" [(ngModel)]="biglietto_d.n" min="1" />
+  <p>Classe:</p>
+  <select class="campo-biglietto selezione-classe" [(ngModel)]="biglietto_d.type">
+    <option value="firstclass">Firstclass</option>
+    <option value="business">Business</option>
+    <option value="economy">Economy</option>
+  </select>
+  <p>Bagaglio Extra--20kg</p>
+  <input type="checkbox" class="checkbox-extra" [(ngModel)]="biglietto_d.extra_b" />
+ 
+  <button class="bottone bottone-conferma-acquisto" (click)="PurchaseT()">Acquista</button>
+</div>
+
+<!-- Pulsanti mostra/nascondi biglietti -->
+<button class="bottone mostra-biglietti" (click)="MostraT()" *ngIf="bool_t==false">Mostra Biglietti</button>
+<button class="bottone nascondi-biglietti" (click)="MostraT()" *ngIf="bool_t==true">Nascondi Biglietti</button>
+
+<!-- Elenco biglietti acquistati -->
+<div *ngIf="bool_t==true" class="lista-biglietti">
+  <p class="titolo-biglietti">ECCO I TUOI BIGLIETTI</p>
+  <div *ngFor="let ticket of Tickets" class="biglietto-utente">
+    <img id="codicbarre" src="barre.png">
+    <h3>Passeggero: {{ ticket.passanger | uppercase }}</h3>
+    <p>ID Volo: {{ ticket.id_f }}</p>
+    <p>ORA PARTENZA: {{ ticket.DepartureTime }}</p>
+    <p>DATA: {{ ticket.Date }}</p>
+    <p>ID Transazione: {{ ticket.id_transaction }}</p>
+    <p>Tipo Posto: {{ ticket.seat.type }}</p>
+    <p>Costo Posto: €{{ ticket.seat.cost }}</p>
+    <p>Quantità: {{ ticket.seat.quantity }}</p>
+    <p>Bagaglio Extra 20kg: {{ ticket.extra_b_20kg ? 'Sì' : 'No' }}</p>
+  </div>
+</div>
+
+<!-- Messaggio per utente non loggato -->
+<div class="non-loggato" *ngIf="message!=''">
+  <p>{{message}}</p>
+  <button class="bottone torna-login" (click)="Login()">Torna alla Pagina Login</button>
+</div>

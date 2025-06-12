@@ -1,0 +1,61 @@
+/* Contenitore principale */
+.but {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Immagine */
+#ima {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+#ima:hover {
+  transform: scale(1.1);
+}
+
+/* Pulsanti generali */
+#login,
+#registrazione,
+#ospite {
+  padding: 12px 24px;
+  width: 220px;
+  border: none;
+  border-radius: 30px;
+  background-color: #1976d2;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#login:hover,
+#registrazione:hover,
+#ospite:hover {
+  background-color: #1565c0;
+  transform: scale(1.05);
+}
+
+/* Responsive: adattamento per schermi piccoli */
+@media (max-width: 600px) {
+  .but {
+    padding: 20px;
+  }
+
+  #login,
+  #registrazione,
+  #ospite {
+    width: 100%;
+  }
+
+  #ima {
+    width: 120px;
+  }
+}

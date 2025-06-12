@@ -1,0 +1,32 @@
+
+    <h3><img id="ad" src="2206368.png">Bentornato Admin</h3>
+
+<h1>Inserisci Dati Airline da Registrare</h1>
+<input type="email" placeholder="Emetti Email" [(ngModel)]="Airline.email">
+<input type="text" placeholder="Emetti Username" [(ngModel)]="Airline.username">
+<input type="password" placeholder="Emetti Password" [(ngModel)]="Airline.password">
+<button (click)="Registra_Airline()">Click</button>
+<br>
+<br>
+<br>
+<br>
+<h1> User da Cercare</h1>
+<input type="text" placeholder="Emetti username da Cercare" [(ngModel)]="username">
+<button (click)="GiveOne()"> Click</button>
+
+<div *ngFor="let user of Users">
+    <p><strong>Email: </strong>{{ user.email }}</p>
+    <p><strong>Username: </strong>{{ user.username }}</p>
+    <p><strong>Ruolo: </strong>{{ user.role }}</p>
+    <button (click)="Visual_Rem(user)">Remove from View</button>
+    <button (click)="DeleteOne(user)">Delete User</button>
+  </div>
+  
+
+
+<div *ngIf="res.Pos==1"class="message success">
+    <p>{{risposta}}</p>
+</div>
+<div *ngIf="res.Neg==1" class="message error">
+    <p>{{risposta}}</p>
+</div>
